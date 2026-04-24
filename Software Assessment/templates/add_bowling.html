@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card form-card">
+  <h2>Add Bowling Entry</h2>
+  <form method="post" novalidate>
+    <label>Date</label><input type="date" name="date" required>
+    <label>Opposition</label><input type="text" name="opposition" required>
+    <label>Venue</label><input type="text" name="venue" required>
+    <label>Format</label>
+    <select name="format" required>
+      <option value="">Select</option><option>T20</option><option>ODI</option><option>Test</option>
+    </select>
+    <label>Overs</label><input type="number" name="overs" min="0" step="0.1" value="0" required>
+    <label>Wickets</label><input type="number" name="wickets" min="0" value="0" required>
+    <label>Runs Conceded</label><input type="number" name="runs_conceded" min="0" value="0" required>
+    <button type="submit">Save</button>
+  </form>
+</section>
+{% endblock %}
