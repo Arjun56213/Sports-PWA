@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
+
+/* COLOR VARIABLES FROM SECOND FORMAT */
 :root {
   --bg: #0f172a;
   --panel: #111827;
@@ -8,88 +11,120 @@
   --border: rgba(255,255,255,.08);
 }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; min-height: 100%; }
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* BODY: Uses the radial gradient and font from Second Format */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1e293b, var(--bg));
-  color: var(--text);
+    background: radial-gradient(circle at top, #1e293b, var(--bg));
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1rem;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  background: rgba(15, 23, 42, .72);
-  backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.eyebrow { margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: .18em; font-size: .72rem; }
-.site-header h1 { margin: .2rem 0 0; font-size: 1.25rem; }
-.nav { display: flex; flex-wrap: wrap; gap: .75rem; }
-.nav a {
-  padding: .55rem .85rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255,255,255,.03);
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 1rem;
+    line-height: 1.5;
 }
 
-.page-shell { width: min(1200px, calc(100% - 2rem)); margin: 1.25rem auto 3rem; }
-.card {
-  background: rgba(17, 24, 39, .9);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 1rem;
+/* BANNER: Structured like First Format, Colored like Second */
+.banner {
+    padding: 60px;
+    text-align: center;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 3em;
+    text-transform: uppercase;
+    letter-spacing: .10em;
 }
-.hero { display:flex; justify-content: space-between; gap: 1rem; align-items:flex-end; margin-bottom: 1rem; }
-.actions { display:flex; gap:.65rem; flex-wrap:wrap; }
-.button, button, .inline-form button {
-  display:inline-block;
-  border: 0;
-  background: linear-gradient(135deg, var(--accent), #60a5fa);
-  color: #06111f;
-  font-weight: 700;
-  padding: .75rem 1rem;
-  border-radius: 14px;
-  cursor:pointer;
+
+/* NAV: Structured like First Format, Dark theme from Second */
+nav {
+    overflow: hidden;
+    background-color: var(--panel);
+    border-bottom: 1px solid var(--border);
+    text-align: center; 
 }
-.button:hover, button:hover, .inline-form button:hover { filter: brightness(1.05); text-decoration:none; }
 
-.grid-3, .stats-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
-.table-card { overflow-x:auto; }
-.table-card h3, .form-card h2, .profile-header h2, .card h3 { margin-top: 0; }
-
-table { width:100%; border-collapse: collapse; font-size: .95rem; }
-th, td { border-bottom: 1px solid var(--border); padding: .75rem .6rem; text-align: left; vertical-align: top; }
-th { color: var(--muted); font-weight: 600; }
-.empty { text-align: center; color: var(--muted); }
-
-form { display:grid; gap: .65rem; }
-label { font-size: .92rem; color: var(--muted); }
-input, select {
-  width: 100%; padding: .8rem .9rem; border-radius: 12px; border: 1px solid var(--border);
-  background: rgba(255,255,255,.05); color: var(--text);
+nav a {
+    display: inline-block;
+    color: var(--text);
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1.2em;
 }
-.form-error { color: #fecaca; margin: 0; }
-.alerts { display:grid; gap:.75rem; margin-bottom: 1rem; }
-.alert { padding:.85rem 1rem; border-radius: 14px; }
-.alert.success { background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3); }
-.alert.error { background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.3); }
-.result-list { list-style:none; padding:0; margin:0; display:grid; gap:.5rem; }
-.result-list li { padding:.8rem; border:1px solid var(--border); border-radius:14px; }
-.inline-form { display:inline; }
-.row-actions { white-space: nowrap; }
-.row-actions a { margin-right: .5rem; }
 
-@media (max-width: 900px) {
-  .site-header, .hero { flex-direction: column; align-items:flex-start; }
-  .grid-3, .stats-grid { grid-template-columns: 1fr; }
+nav a:hover {
+    background-color: var(--panel-2);
+    color: var(--accent);
+    text-decoration: none;
+}
+
+nav a.active {
+    background-color: var(--accent);
+    color: #06111f; /* Contrast color for active state */
+}
+
+/* TABLE: Structure of First Format, Styles of Second */
+.guess_table {
+    border-collapse: collapse;
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+}
+
+.guess_table td, .guess_table th {
+    border-bottom: 1px solid var(--border);
+    padding: 12px;
+}
+
+.guess_table tr:nth-child(even){ background-color: rgba(255,255,255, 0.02); }
+
+.guess_table tr:hover { background-color: var(--panel-2); }
+
+.guess_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(56, 189, 248, 0.1); /* Subtle accent tint */
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* FORMS: Inputs using the transparent style from Second Format */
+input[type=text], input[type="password"], input[type="date"], input[type="number"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,.05);
+    color: var(--text);
+    box-sizing: border-box;
+}
+
+/* BUTTONS: Uses the Linear Gradient from Second Format */
+input[type=submit], button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), #60a5fa);
+    color: #06111f;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 700;
+}
+
+input[type=submit]:hover, button:hover {
+    filter: brightness(1.1);
 }
