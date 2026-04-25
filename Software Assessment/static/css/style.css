@@ -69,7 +69,7 @@ nav a:hover {
 
 nav a.active {
     background-color: var(--accent);
-    color: #06111f; /* Contrast color for active state */
+    color: #06111f;
 }
 
 /* TABLE: Structure of First Format, Styles of Second */
