@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card form-card">
+  <h2>Edit Batting Entry</h2>
+  <form method="post" novalidate>
+    <label>Date</label><input type="date" name="date" value="{{ entry.date }}" required>
+    <label>Opposition</label><input type="text" name="opposition" value="{{ entry.opposition }}" required>
+    <label>Venue</label><input type="text" name="venue" value="{{ entry.venue }}" required>
+    <label>Format</label>
+    <select name="format" required>
+      <option value="T20" {% if entry.format == 'T20' %}selected{% endif %}>T20</option>
+      <option value="ODI" {% if entry.format == 'ODI' %}selected{% endif %}>ODI</option>
+      <option value="Test" {% if entry.format == 'Test' %}selected{% endif %}>Test</option>
+    </select>
+    <label>Runs</label><input type="number" name="runs" min="0" value="{{ entry.runs }}" required>
+    <label>Balls</label><input type="number" name="balls" min="0" value="{{ entry.balls }}" required>
+    <label>Dismissal</label><input type="text" name="dismissal" value="{{ entry.dismissal }}" required>
+    <button type="submit">Update</button>
+  </form>
+</section>
+{% endblock %}
