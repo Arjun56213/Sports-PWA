@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card form-card">
+  <h2>Register</h2>
+  <form method="post" novalidate>
+    <label>Username</label>
+    <input type="text" name="username" minlength="3" required>
+    <label>Password</label>
+    <input type="password" name="password" minlength="8" required>
+    {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
+    <button type="submit">Create account</button>
+  </form>
+</section>
+{% endblock %}

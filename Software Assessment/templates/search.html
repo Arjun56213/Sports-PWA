@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card form-card">
+  <h2>Search users</h2>
+  <form method="get">
+    <label>Username</label>
+    <input type="text" name="q" value="{{ query }}" minlength="1">
+    <button type="submit">Search</button>
+  </form>
+</section>
+
+<section class="card">
+  <h3>Results</h3>
+  <ul class="result-list">
+    {% for user in results %}
+      <li><a href="{{ url_for('UserProfile', user_id=user.user_id) }}">{{ user.username }}</a></li>
+    {% else %}
+      <li class="empty">No matching users found.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

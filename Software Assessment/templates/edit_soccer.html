@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card form-card">
+  <h2>Edit Soccer Entry</h2>
+  <form method="post" novalidate>
+    <label>Date</label><input type="date" name="date" value="{{ entry.date }}" required>
+    <label>Opposition</label><input type="text" name="opposition" value="{{ entry.opposition }}" required>
+    <label>Venue</label><input type="text" name="venue" value="{{ entry.venue }}" required>
+    <label>Goals</label><input type="number" name="goals" min="0" value="{{ entry.goals }}" required>
+    <label>Assists</label><input type="number" name="assists" min="0" value="{{ entry.assists }}" required>
+    <label>Result</label>
+    <select name="result" required>
+      <option value="Win" {% if entry.result == 'Win' %}selected{% endif %}>Win</option>
+      <option value="Draw" {% if entry.result == 'Draw' %}selected{% endif %}>Draw</option>
+      <option value="Loss" {% if entry.result == 'Loss' %}selected{% endif %}>Loss</option>
+    </select>
+    <button type="submit">Update</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card profile-header">
+  <div>
+    <h2>{{ user.username }}'s Profile</h2>
+    <p>{{ 'Your private profile' if own_profile else 'Read-only UserProfile' }}</p>
+  </div>
+  {% if own_profile %}
+  <div class="actions">
+    <a class="button" href="{{ url_for('AddBatting') }}">Add Batting</a>
+    <a class="button" href="{{ url_for('AddBowling') }}">Add Bowling</a>
+    <a class="button" href="{{ url_for('AddSoccer') }}">Add Soccer</a>
+  </div>
+  {% endif %}
+</section>
+
+<div class="stats-grid">
+  <section class="card">
+    <h3>Batting Stats</h3>
+    <p>Innings: {{ batting_stats.innings }}</p>
+    <p>Total Runs: {{ batting_stats.total_runs }}</p>
+    <p>High Score: {{ batting_stats.high_score }}</p>
+    <p>Batting Average: {{ batting_stats.batting_avg }}</p>
+    <p>Strike Rate: {{ batting_stats.strike_rate }}</p>
+  </section>
+  <section class="card">
+    <h3>Bowling Stats</h3>
+    <p>Matches: {{ bowling_stats.matches }}</p>
+    <p>Total Wickets: {{ bowling_stats.total_wickets }}</p>
+    <p>Bowling Average: {{ bowling_stats.bowling_avg }}</p>
+    <p>Economy Rate: {{ bowling_stats.economy }}</p>
+  </section>
+  <section class="card">
+    <h3>Soccer Stats</h3>
+    <p>Matches: {{ soccer_stats.matches }}</p>
+    <p>Goals: {{ soccer_stats.total_goals }}</p>
+    <p>Assists: {{ soccer_stats.total_assists }}</p>
+    <p>Wins: {{ soccer_stats.wins }}</p>
+    <p>Draws: {{ soccer_stats.draws }}</p>
+    <p>Losses: {{ soccer_stats.losses }}</p>
+  </section>
+</div>
+
+<section class="card table-card">
+  <h3>Batting Entries</h3>
+  <table>
+    <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Format</th><th>Runs</th><th>Balls</th><th>Dismissal</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
+    <tbody>
+      {% for row in batting %}
+        <tr>
+          <td>{{ row.date }}</td><td>{{ row.opposition }}</td><td>{{ row.venue }}</td><td>{{ row.format }}</td><td>{{ row.runs }}</td><td>{{ row.balls }}</td><td>{{ row.dismissal }}</td>
+          {% if own_profile %}
+          <td class="row-actions">
+            <a href="{{ url_for('EditBatting', batting_id=row.batting_id) }}">Edit</a>
+            <a href="{{ url_for('delete_entry_route', sport='batting', entry_id=row.batting_id) }}" class="button" onclick="return confirm('Delete this entry?')">Delete</a>
+          </td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr><td colspan="{% if own_profile %}8{% else %}7{% endif %}" class="empty">No batting entries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card table-card">
+  <h3>Bowling Entries</h3>
+  <table>
+    <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Format</th><th>Overs</th><th>Wickets</th><th>Runs Conceded</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
+    <tbody>
+      {% for row in bowling %}
+        <tr>
+          <td>{{ row.date }}</td><td>{{ row.opposition }}</td><td>{{ row.venue }}</td><td>{{ row.format }}</td><td>{{ row.overs }}</td><td>{{ row.wickets }}</td><td>{{ row.runs_conceded }}</td>
+          {% if own_profile %}
+          <td class="row-actions">
+            <a href="{{ url_for('EditBowling', bowling_id=row.bowling_id) }}">Edit</a>
+            <a href="{{ url_for('delete_entry_route', sport='bowling', entry_id=row.bowling_id) }}" class="button" onclick="return confirm('Delete this entry?')">Delete</a>
+          </td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr><td colspan="{% if own_profile %}8{% else %}7{% endif %}" class="empty">No bowling entries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card table-card">
+  <h3>Soccer Entries</h3>
+  <table>
+    <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Goals</th><th>Assists</th><th>Result</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
+    <tbody>
+      {% for row in soccer %}
+        <tr>
+          <td>{{ row.date }}</td><td>{{ row.opposition }}</td><td>{{ row.venue }}</td><td>{{ row.goals }}</td><td>{{ row.assists }}</td><td>{{ row.result }}</td>
+          {% if own_profile %}
+          <td class="row-actions">
+            <a href="{{ url_for('EditSoccer', match_id=row.match_id) }}">Edit</a>
+            <a href="{{ url_for('delete_entry_route', sport='soccer', entry_id=row.match_id) }}" class="button" onclick="return confirm('Delete this entry?')">Delete</a>
+          </td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr><td colspan="{% if own_profile %}7{% else %}6{% endif %}" class="empty">No soccer entries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
