@@ -1,57 +1,125 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Performances</h2>
+<h2>All performances</h2>
+<p>Newest entries first across cricket batting, cricket bowling and soccer.</p>
 
-<h3>Batting</h3>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>User</th>
-        <th>Runs</th>
-    </tr>
+<section>
+    <h3>Cricket Batting</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Opposition</th>
+                <th>Format</th>
+                <th>Runs</th>
+                <th>Balls</th>
+                <th>Dismissal</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in batting %}
+            <tr>
+                <td>{{ row.date }}</td>
+                <td><a href="{{ url_for('UserProfile', user_id=row.user_id) }}">{{ row.username }}</a></td>
+                <td>{{ row.opposition }}</td>
+                <td>{{ row.format }}</td>
+                <td>{{ row.runs }}</td>
+                <td>{{ row.balls }}</td>
+                <td>{{ row.dismissal }}</td>
+                <td>
+                    {% if session.get('user_id') == row.user_id %}
+                        <a href="{{ url_for('EditBatting', batting_id=row.batting_id) }}" class="btn-edit">Edit</a>
+                        <a href="{{ url_for('delete_entry_route', sport='batting', entry_id=row.batting_id) }}" 
+                           class="btn-delete" onclick="return confirm('Delete this performance?')">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">No batting entries yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 
-    {% for item in batting %}
-    <tr>
-        <td>{{ item.date }}</td>
-        <td>{{ item.username }}</td>
-        <td>{{ item.runs }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<section>
+    <h3>Cricket Bowling</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Opposition</th>
+                <th>Format</th>
+                <th>Overs</th>
+                <th>Wkts</th>
+                <th>Runs</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in bowling %}
+            <tr>
+                <td>{{ row.date }}</td>
+                <td><a href="{{ url_for('UserProfile', user_id=row.user_id) }}">{{ row.username }}</a></td>
+                <td>{{ row.opposition }}</td>
+                <td>{{ row.format }}</td>
+                <td>{{ row.overs }}</td>
+                <td>{{ row.wickets }}</td>
+                <td>{{ row.runs_conceded }}</td>
+                <td>
+                    {% if session.get('user_id') == row.user_id %}
+                        <a href="{{ url_for('EditBowling', bowling_id=row.bowling_id) }}" class="btn-edit">Edit</a>
+                        <a href="{{ url_for('delete_entry_route', sport='bowling', entry_id=row.bowling_id) }}" 
+                           class="btn-delete" onclick="return confirm('Delete this performance?')">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 
-<h3>Bowling</h3>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>User</th>
-        <th>Wickets</th>
-    </tr>
-
-    {% for item in bowling %}
-    <tr>
-        <td>{{ item.date }}</td>
-        <td>{{ item.username }}</td>
-        <td>{{ item.wickets }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<h3>Soccer</h3>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>User</th>
-        <th>Goals</th>
-    </tr>
-
-    {% for item in soccer %}
-    <tr>
-        <td>{{ item.date }}</td>
-        <td>{{ item.username }}</td>
-        <td>{{ item.goals }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<section>
+    <h3>Soccer</h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Opposition</th>
+                <th>Venue</th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>Result</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in soccer %}
+            <tr>
+                <td>{{ row.date }}</td>
+                <td><a href="{{ url_for('UserProfile', user_id=row.user_id) }}">{{ row.username }}</a></td>
+                <td>{{ row.opposition }}</td>
+                <td>{{ row.venue }}</td>
+                <td>{{ row.goals }}</td>
+                <td>{{ row.assists }}</td>
+                <td>{{ row.result }}</td>
+                <td>
+                    {% if session.get('user_id') == row.user_id %}
+                        <a href="{{ url_for('EditSoccer', match_id=row.match_id) }}" class="btn-edit">Edit</a>
+                        <a href="{{ url_for('delete_entry_route', sport='soccer', entry_id=row.match_id) }}" 
+                           class="btn-delete" onclick="return confirm('Delete this performance?')">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 
 {% endblock %}
