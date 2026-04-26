@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Performances</h2>
+
+<h3>Batting</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Runs</th>
+    </tr>
+
+    {% for item in batting %}
+    <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.runs }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Bowling</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Wickets</th>
+    </tr>
+
+    {% for item in bowling %}
+    <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.wickets }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Soccer</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Goals</th>
+    </tr>
+
+    {% for item in soccer %}
+    <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.goals }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
