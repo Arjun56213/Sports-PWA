@@ -16,7 +16,7 @@
 
 <div class="stats-grid">
   <section class="card">
-    <h3>Batting Stats</h3>
+    <h3><img src="/static/icons/batting.png" class="pwa-icon"> Batting Stats</h3>
     <p>Innings: {{ batting_stats.innings }}</p>
     <p>Total Runs: {{ batting_stats.total_runs }}</p>
     <p>High Score: {{ batting_stats.high_score }}</p>
@@ -24,14 +24,14 @@
     <p>Strike Rate: {{ batting_stats.strike_rate }}</p>
   </section>
   <section class="card">
-    <h3>Bowling Stats</h3>
+    <h3><img src="/static/icons/batting.png" class="pwa-icon"> Bowling Stats</h3>
     <p>Matches: {{ bowling_stats.matches }}</p>
     <p>Total Wickets: {{ bowling_stats.total_wickets }}</p>
     <p>Bowling Average: {{ bowling_stats.bowling_avg }}</p>
     <p>Economy Rate: {{ bowling_stats.economy }}</p>
   </section>
   <section class="card">
-    <h3>Soccer Stats</h3>
+    <h3><img src="/static/icons/soccer.png" class="pwa-icon"> Soccer Stats</h3>
     <p>Matches: {{ soccer_stats.matches }}</p>
     <p>Goals: {{ soccer_stats.total_goals }}</p>
     <p>Assists: {{ soccer_stats.total_assists }}</p>
@@ -42,7 +42,7 @@
 </div>
 
 <section class="card table-card">
-  <h3>Batting Entries</h3>
+  <h3><img src="/static/icons/batting.png" class="pwa-icon"> Batting Entries</h3>
   <table>
     <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Format</th><th>Runs</th><th>Balls</th><th>Dismissal</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
     <tbody>
@@ -64,7 +64,7 @@
 </section>
 
 <section class="card table-card">
-  <h3>Bowling Entries</h3>
+  <h3><img src="/static/icons/batting.png" class="pwa-icon"> Bowling Entries</h3>
   <table>
     <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Format</th><th>Overs</th><th>Wickets</th><th>Runs Conceded</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
     <tbody>
@@ -86,7 +86,7 @@
 </section>
 
 <section class="card table-card">
-  <h3>Soccer Entries</h3>
+  <h3><img src="/static/icons/soccer.png" class="pwa-icon"> Soccer Entries</h3>
   <table>
     <thead><tr><th>Date</th><th>Opposition</th><th>Venue</th><th>Goals</th><th>Assists</th><th>Result</th>{% if own_profile %}<th>Actions</th>{% endif %}</tr></thead>
     <tbody>

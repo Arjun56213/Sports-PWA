@@ -174,3 +174,13 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
+/* Style for the icons in headers */
+.pwa-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 8px;
+    object-fit: cover;
+    border-radius: 4px;
+}

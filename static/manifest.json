@@ -1,9 +1,33 @@
 {
   "name": "SportVault",
   "short_name": "SportVault",
+  "description": "Track and analyze your sports performance.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
-  "orientation": "portrait-primary"
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/icons/batting.png",
+      "sizes": "251x251",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icons/batting.png",
+      "sizes": "251x251",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/static/screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SportVault Desktop View"
+    }
+  ]
 }

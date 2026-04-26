@@ -10,6 +10,11 @@
     <link rel="icon" href="/static/icons/favicon.png">
     <link rel="stylesheet" href="/static/css/style.css" />
     <script defer src="/static/js/app.js"></script>
+    <link rel="icon" type="image/png" href="/static/icons/search.png">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="apple-touch-icon" href="/static/icons/batting.png">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body>
     <header class="site-header">
@@ -18,23 +23,37 @@
             <h1>Cricket and Soccer Tracker</h1>
         </div>
         <nav class="nav">
-            <a href="{{ url_for('Home') }}">Home</a>
-            <a href="{{ url_for('Search') }}">Search</a>
-            {% if session.get('username') %}
-                <a href="{{ url_for('Profile') }}">My Profile</a>
-                <a href="{{ url_for('Logout') }}">Logout</a>
-                <a href="{{ url_for('AddBatting') }}">Add Batting Entry</a>
-                <a href="{{ url_for('AddBowling') }}">Add Bowling Entry</a>
-                <a href="{{ url_for('AddSoccer') }}">Add Soccer Entry</a>
-            {% else %}
-                <a href="{{ url_for('Login') }}">Login</a>
-                <a href="{{ url_for('Register') }}">Register</a>
-            {% endif %}
-        </nav>
+                <a href="{{ url_for('Home') }}">Home</a>
+                <a href="{{ url_for('Search') }}">
+                    <img src="/static/icons/search.png" width="18" style="vertical-align: middle;"> Search
+                </a>
+    
+                {% if session.get('username') %}
+                    <a href="{{ url_for('Profile') }}">My Profile</a>
+                    <a href="{{ url_for('Logout') }}">Logout</a>
+                    <a href="{{ url_for('AddBatting') }}">Add Batting Entry</a>
+                    <a href="{{ url_for('AddBowling') }}">Add Bowling Entry</a>
+                    <a href="{{ url_for('AddSoccer') }}">Add Soccer Entry</a>
+                {% else %}
+                    <a href="{{ url_for('Login') }}">Login</a>
+                    <a href="{{ url_for('Register') }}">Register</a>
+                {% endif %}
+            </nav>
     </header>
 
     <main class="page-shell">
         {% block content %}{% endblock %}
     </main>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register("/static/js/serviceworker.js").then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

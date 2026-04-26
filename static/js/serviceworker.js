@@ -6,6 +6,10 @@ const ASSETS = [
   '/search',
   '/static/css/style.css',
   '/static/js/app.js',
+  '/static/icons/batting.png',
+  '/static/icons/soccer.png',
+  '/static/icons/search.png',
+  '/static/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
