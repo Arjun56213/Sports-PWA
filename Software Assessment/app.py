@@ -4,6 +4,8 @@ import db
 app = Flask(__name__)
 app.secret_key = "sportvault-secret-key"
 
+#Security headers to protect against XSS, clickjacking, and other common web vulnerabilities
+
 @app.after_request
 def SetSecurityHeaders(response):
     response.headers["Content-Security-Policy"] = "script-src 'self';"
@@ -13,6 +15,7 @@ def SetSecurityHeaders(response):
     return response
 
 
+# Routes for user authentication
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/login", methods=["GET", "POST"])
@@ -32,6 +35,8 @@ def Login():
             error = "Invalid username or password."
     return render_template("login.html", error=error)
 
+# Route for user registration
+
 @app.route("/register", methods=["GET", "POST"])
 def Register():
     if session.get("username"):
@@ -45,12 +50,15 @@ def Register():
             return redirect("/login")
     return render_template("register.html", error=error)
 
+# Route for logging out
+
 @app.route("/logout")
 def Logout():
     session.clear()
     return redirect("/login")
 
 
+# Routes for displaying home page
 
 @app.route("/home")
 def Home():
@@ -61,6 +69,8 @@ def Home():
         bowling=db.get_all_bowling(),
         soccer=db.get_all_soccer()
     )
+
+# Routes for user profiles 
 
 @app.route("/profile")
 def Profile():
@@ -98,6 +108,8 @@ def UserProfile(user_id):
         own_profile=False
     )
 
+# Route for searching users
+
 @app.route("/search")
 def Search():
     if not session.get("username"):
@@ -106,6 +118,7 @@ def Search():
     results = db.search_users(query) if query else []
     return render_template("search.html", results=results, query=query)
 
+# Routes for deleting entries
 
 @app.route("/delete/<sport>/<int:entry_id>")
 def delete_entry_route(sport, entry_id):
@@ -124,7 +137,7 @@ def delete_entry_route(sport, entry_id):
     
     return redirect("/profile")
 
-
+# Routes for adding
 
 @app.route("/add/batting", methods=["GET", "POST"])
 def AddBatting():
@@ -137,6 +150,8 @@ def AddBatting():
             int(request.form["balls"]), request.form["dismissal"])
         return redirect("/profile")
     return render_template("add_batting.html")
+
+# Routes for editing
 
 @app.route("/edit/batting/<int:batting_id>", methods=["GET", "POST"])
 def EditBatting(batting_id):
@@ -154,6 +169,8 @@ def EditBatting(batting_id):
             request.form["dismissal"])
         return redirect("/profile")
     return render_template("edit_batting.html", entry=entry)
+
+# Routes for adding and editing bowling and soccer entries follow the same pattern as batting
 
 @app.route("/add/bowling", methods=["GET", "POST"])
 def AddBowling():

@@ -7,13 +7,15 @@ from datetime import datetime
 DB_FOLDER = "database" 
 DB_PATH = os.path.join(DB_FOLDER, "sportvault.db")
 
-
+#User Class - represents a user in the system
 
 class User:
     def __init__(self, user_id, username, created_at):
         self.user_id = user_id
         self.username = username
         self.created_at = created_at
+
+#Batting Class - represents a batting performance entry
 
 class BattingPerformance:
     def __init__(self, performance_id, user_id, date, opposition, venue, format, runs, balls, dismissal, username=None):
@@ -28,6 +30,8 @@ class BattingPerformance:
         self.dismissal = dismissal
         self.username = username 
 
+#Bowling Class - represents a bowling performance entry
+
 class BowlingPerformance:
     def __init__(self, bowling_id, user_id, date, opposition, venue, format, overs, wickets, runs_conceded, username=None):
         self.bowling_id = bowling_id
@@ -41,6 +45,8 @@ class BowlingPerformance:
         self.runs_conceded = runs_conceded
         self.username = username
 
+#Soccer Class - represents a soccer performance entry
+
 class SoccerPerformance:
     def __init__(self, match_id, user_id, date, opposition, venue, goals, assists, result, username=None):
         self.match_id = match_id
@@ -53,7 +59,7 @@ class SoccerPerformance:
         self.result = result
         self.username = username
 
-
+# --- DATABASE FUNCTIONS ---
 
 def GetDB():
     if not os.path.exists(DB_FOLDER):
@@ -72,7 +78,7 @@ def InitDB():
     db.commit()
     db.close()
 
-
+#Registration Functions - checks if username is taken and hashes password before storing in database
 
 def register_user(username, password):
     if not username or not password:
@@ -90,6 +96,8 @@ def register_user(username, password):
     finally:
         db.close()
 
+#Login Functions - checks if username exists and password matches
+
 def check_login(username, password):
     db = GetDB()
     row = db.execute("SELECT * FROM Users WHERE username = ?", (username,)).fetchone()
@@ -106,6 +114,7 @@ def get_user_by_id(user_id):
         return User(row["user_id"], row["username"], row["created_at"])
     return None
 
+# Functions for adding, retrieving, updating, and deleting performance entries for batting, bowling, and soccer
 
 def add_batting(user_id, date, opposition, venue, format, runs, balls, dismissal):
     db = GetDB()
@@ -199,12 +208,15 @@ def delete_entry(table_name, id_column, entry_id, user_id):
     db.commit()
     db.close()
 
+# Search function for users based on username query
+
 def search_users(query):
     db = GetDB()
     rows = db.execute("SELECT * FROM Users WHERE username LIKE ?", (f"%{query}%",)).fetchall()
     db.close()
     return [User(r["user_id"], r["username"], r["created_at"]) for r in rows]
 
+# Functions to calculate statistics for batting, bowling, and soccer performances for a given user
 
 def batting_stats(user_id):
     db = GetDB()
@@ -241,6 +253,7 @@ def bowling_stats(user_id):
     db.close()
 
     if row and row["matches"] > 0:
+        # Avoid division by zero for economy
         eco = (row["total_runs"] / row["total_overs"]) if row["total_overs"] and row["total_overs"] > 0 else 0
         return {
             "matches": row["matches"],
@@ -252,6 +265,7 @@ def bowling_stats(user_id):
 
 def soccer_stats(user_id):
     db = GetDB()
+    # Basic totals
     totals = db.execute('''
         SELECT 
             COUNT(*) as matches,
@@ -261,7 +275,7 @@ def soccer_stats(user_id):
         WHERE user_id = ?
     ''', (user_id,)).fetchone()
 
-
+    # Result counts
     wins = db.execute("SELECT COUNT(*) FROM Soccer_Performance WHERE user_id = ? AND result = 'Win'", (user_id,)).fetchone()[0]
     draws = db.execute("SELECT COUNT(*) FROM Soccer_Performance WHERE user_id = ? AND result = 'Draw'", (user_id,)).fetchone()[0]
     losses = db.execute("SELECT COUNT(*) FROM Soccer_Performance WHERE user_id = ? AND result = 'Loss'", (user_id,)).fetchone()[0]
@@ -278,6 +292,8 @@ def soccer_stats(user_id):
             "losses": losses
         }
     return {"matches": 0, "total_goals": 0, "total_assists": 0, "wins": 0, "draws": 0, "losses": 0}
+
+# Update functions for editing existing entries - checks if entry belongs to user before allowing update
 
 def update_batting(batting_id, user_id, date, opposition, venue, format, runs, balls, dismissal):
     db = GetDB()
